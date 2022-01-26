@@ -1,5 +1,6 @@
 import './App.css';
 import WeatherTile from './components/WeatherTile';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import axios from 'axios';
 import { useState, useEffect } from 'react/cjs/react.development';
@@ -24,7 +25,7 @@ function App() {
           url: api
         }
       );
-      console.log(response);
+      console.log(response.data.daily);
 
       if (response.status == 200) {
         let data = response.data.daily;
@@ -44,11 +45,7 @@ function App() {
       {
         weatherArr.map(
           function (item, index) {
-            console.log(item.temp.day);
-            return <WeatherTile
-              dayNum={index + 1}
-              temp={item.temp.day}
-            ></WeatherTile>
+            return <WeatherTile dayNum={index + 1} temp={item.temp.day} min={item.temp.min} max={item.temp.max}/>
           }
         )
       }
