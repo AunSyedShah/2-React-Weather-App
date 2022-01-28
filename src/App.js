@@ -5,14 +5,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { useState, useEffect } from 'react/cjs/react.development';
 import React from 'react';
+
 let coordinates = {
   lat: 24.614162,
   lng: 67.082216,
-  type: "daily"
 }
 
 function App() {
-  const [weatherArr, setWeatherArr] = useState([]);
+  const [weatherArr, setWeatherArr] = useState();
 
   // Note: This function will call api...!
   const callApi = async () => {
@@ -26,7 +26,6 @@ function App() {
           url: api
         }
       );
-      console.log(response.data.daily);
 
       if (response.status == 200) {
         let data = response.data.daily;
@@ -42,11 +41,12 @@ function App() {
   useEffect(() => callApi(), []);
 
   return (
-    <div>
+    // array map with WeatherTile component
+    <div className="App">
       {
         weatherArr.map(
-          function (item, index) {
-            return <WeatherTile dayNum={index + 1} temp={item.temp.day} min={item.temp.min} max={item.temp.max} />
+          (weather, index) => {
+            return <WeatherTile key={index} dayNum={index + 1} temp={weather.temp.day} min={weather.temp.min} max={weather.temp.max} />
           }
         )
       }
