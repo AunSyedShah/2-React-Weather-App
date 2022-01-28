@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import axios from 'axios';
 import { useState, useEffect } from 'react/cjs/react.development';
+import React from 'react';
 let coordinates = {
   lat: 24.614162,
   lng: 67.082216,
@@ -41,11 +42,11 @@ function App() {
   useEffect(() => callApi(), []);
 
   return (
-    <div className="App">
+    <div>
       {
         weatherArr.map(
           function (item, index) {
-            return <WeatherTile dayNum={index + 1} temp={item.temp.day} min={item.temp.min} max={item.temp.max}/>
+            return <WeatherTile dayNum={index + 1} temp={item.temp.day} min={item.temp.min} max={item.temp.max} />
           }
         )
       }
