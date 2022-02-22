@@ -42,7 +42,7 @@ function App() {
 
   return (
     // array map with WeatherTile component
-    <div className="App">
+    <React.Fragment>
       {
         weatherArr.map(
           (weather, index) => {
@@ -50,7 +50,7 @@ function App() {
           }
         )
       }
-    </div>
+    </<React.Fragment>
   );
 }
 
