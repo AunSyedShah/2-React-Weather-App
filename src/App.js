@@ -1,10 +1,9 @@
 import './App.css';
-import WeatherTile from './components/WeatherTile';
+import WeatherTile from './Components/WeatherTile';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import axios from 'axios';
-import { useState, useEffect } from 'react/cjs/react.development';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 let coordinates = {
   lat: 24.614162,
@@ -30,6 +29,7 @@ function App() {
       if (response.status == 200) {
         let data = response.data.daily;
         setWeatherArr(data);
+        console.log(data);
       }
     }
     catch (error) {
@@ -38,20 +38,32 @@ function App() {
   }
 
   // Note: When this component rendered successfully then this hook will run and call the api...!
-  useEffect(() => callApi(), []);
+  useEffect(
+    () => callApi(),
+    []);
 
   return (
-    // array map with WeatherTile component
     <React.Fragment>
+      <div className="container">
+        <h3>Dynamic Weather App</h3>
+        <h6>By Elina and Aun</h6>
       {
-        weatherArr.map(
-          (weather, index) => {
-            return <WeatherTile key={index} dayNum={index + 1} temp={weather.temp.day} min={weather.temp.min} max={weather.temp.max} />
-          }
-        )
+        // weather tile in table format
+        weatherArr && weatherArr.map((item, index) => {
+          return (
+            <WeatherTile
+              dayNum={index + 1}
+              temp={item.temp.day}
+              min={item.temp.min}
+              max={item.temp.max}
+              key={index}
+            />
+          )
+        })
       }
-    </<React.Fragment>
-  );
+      </div>
+    </React.Fragment>
+  )
 }
 
 export default App;
